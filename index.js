@@ -4,7 +4,7 @@ const cors = require("cors") // cors
 const errorContrller = require('./controllers/error') // 에러 컨트롤러
 const { swaggerUi, specs } = require('./swagger') // 스웨거 설정
 
-const redisClient = require('./redis.js');
+const redisClient = require('./util/redis.js');
 
 const app = express() // 어플리케이션 객체 생성
 const ports = process.env.PORT || 3000 // 포트 번호
