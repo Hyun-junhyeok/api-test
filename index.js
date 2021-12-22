@@ -24,13 +24,13 @@ app.use((req, res, next) => {
 });
 
 const go = async () => {
-    await redisClient.set('String Key', 'String Value', redisClient.print)
+    await redisClient.set('my_key', 'my_value', redisClient.print)
 
-    redisClient.get('String Key', function (err, value) {
-        if (err) 
-            throw err;
-        console.log(value);
-    });
+    // redisClient.get('String Key', function (err, value) {
+    //     if (err) 
+    //         throw err;
+    //     console.log(value);
+    // });
 } 
 
 go()
