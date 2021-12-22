@@ -8,4 +8,6 @@ redisClient.on('error', function (err) {
     console.log('Redis error: ' + err);
 });
 
+redisClient.set('my_key', 'my_value', redis.print);
+
 module.exports = redisClient;

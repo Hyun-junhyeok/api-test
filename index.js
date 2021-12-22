@@ -23,18 +23,6 @@ app.use((req, res, next) => {
     next();
 });
 
-const go = async () => {
-    await redisClient.set('my_key', 'my_value', redisClient.print)
-
-    // redisClient.get('String Key', function (err, value) {
-    //     if (err) 
-    //         throw err;
-    //     console.log(value);
-    // });
-} 
-
-go()
-
 // 유저 라우터 실행
 app.use('/users', userRoutes)
 
