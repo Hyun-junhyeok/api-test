@@ -2,7 +2,13 @@ const express = require('express') // express
 const userRoutes = require('./routes/user') // 유저 라우터
 const cors = require("cors") // cors 
 const errorContrller = require('./controllers/error') // 에러 컨트롤러
-const { swaggerUi, specs } = require('./swagger'); // 스웨거 설정
+const { swaggerUi, specs } = require('./swagger') // 스웨거 설정
+
+const redis = require('redis') // 레디스 객체 생성
+const redisClient = redis.createClient(
+    6379,
+    'redis-test.nahjzz.ng.0001.apn2.cache.amazonaws.com'
+)
 
 const app = express() // 어플리케이션 객체 생성
 const ports = process.env.PORT || 3000 // 포트 번호
@@ -23,6 +29,10 @@ app.use((req, res, next) => {
 
 // 유저 라우터 실행
 app.use('/users', userRoutes)
+
+redisClient.set("my_key", "Hello World using Node.js and Redis"); 
+redisClient.get("my_key", redis.print); 
+redisClient.quit(); 
 
 // 에러 컨트롤러
 app.use(errorContrller.get404)
