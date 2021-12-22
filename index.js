@@ -4,7 +4,7 @@ const cors = require("cors") // cors
 const errorContrller = require('./controllers/error') // 에러 컨트롤러
 const { swaggerUi, specs } = require('./swagger') // 스웨거 설정
 
-const redis = require('./redis.js');
+const redisClient = require('./redis.js');
 
 const app = express() // 어플리케이션 객체 생성
 const ports = process.env.PORT || 3000 // 포트 번호
@@ -23,12 +23,20 @@ app.use((req, res, next) => {
     next();
 });
 
+const go = async () => {
+    await redisClient.set('String Key', 'String Value', redis.print)
+
+    redisClient.get('String Key', function (err, value) {
+        if (err) 
+            throw err;
+        console.log(value);
+    });
+} 
+
+go()
+
 // 유저 라우터 실행
 app.use('/users', userRoutes)
-
-redisClient.set("my_key", "Hello World using Node.js and Redis"); 
-redisClient.get("my_key", redis.print); 
-redisClient.quit(); 
 
 // 에러 컨트롤러
 app.use(errorContrller.get404)
